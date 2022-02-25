@@ -10,7 +10,7 @@ export default function Feed() {
   useEffect( ()=>{
     const fetchPosts = async() => {
       const res = await axios.get("posts/timeline/621947282bae5677a6dcdc10")
-     console.log(res.data);
+
       setPosts(res.data);
     }
     fetchPosts();
