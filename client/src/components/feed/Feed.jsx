@@ -6,10 +6,10 @@ import { useEffect } from "react";
 import axios from "axios"
 
 export default function Feed() {
-  const [Posts,setPosts] = useState([]);
+  const [posts,setPosts] = useState([]);
   useEffect( ()=>{
     const fetchPosts = async() => {
-      const res = await axios.get("/timeline/621947e22bae5677a6dcdc12")
+      const res = await axios.get("posts/timeline/621947282bae5677a6dcdc10")
      console.log(res.data);
       setPosts(res.data);
     }
@@ -20,9 +20,9 @@ export default function Feed() {
 <div className="feed">
     <div className="feedWrapper">
       <Share/>
-      {Posts.map(p=>(
+      {posts.map(p=>(
 
-      <Post key={p.id} post={p}/>
+      <Post key={p._id} post={p}/>
       ))}
     </div>
 </div>
