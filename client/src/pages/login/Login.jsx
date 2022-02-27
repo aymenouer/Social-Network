@@ -29,7 +29,7 @@ loginCall({email:email.current.value,password:password.current.value},dispatch)
                    <input required ref={email} placeholder="Email" type="email" className="loginInput" />
                    <input minLength="6" required ref={password} placeholder="Password" type="password" className="loginInput" />
               <button type="submit" className="loginButton" disabled={isFetching} >
-                  {isFetching ? <CircularProgress size="20px" color="white" />:"Log In"} 
+                  {isFetching ? <CircularProgress size="20px" color="inherit" />:"Log In"} 
                   </button>
               <span className="loginForgot">Forgot Password?</span>
               <button className="loginRegisterButton">Create a New Account</button>
