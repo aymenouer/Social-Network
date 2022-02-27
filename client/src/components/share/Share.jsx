@@ -4,7 +4,7 @@ import { useContext, useState } from 'react';
 import { AuthContext } from './../../context/AuthContext';
 import { useRef } from 'react';
 import  axios  from 'axios';
-
+import {  toast } from 'react-toastify';
 export default function Share() {
   const {user}=useContext(AuthContext);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -12,15 +12,47 @@ export default function Share() {
   const [file,setFile] = useState(null);
 const submitHandler = async(e) => {
   e.preventDefault();
-  const newPost = {
-    userId:user._id,
-    desc: desc.current.value
+
+  if (desc.current.value==="")
+  {
+    toast.error("You should Write Description");
   }
-  try {
-    await axios.post('/posts',newPost);
-  } catch (err) {
+  else if (!file)
+  {
+    toast.error("You should upload Photo");
+  }
+  else
+  {
+    const newPost = {
+      userId:user._id,
+      desc: desc.current.value
+    }
+    const data = new FormData();
+  
+    data.append("file",file);
+    newPost.img = file.name;
+    try {
+      await axios.post("/upload",data);
+      
+    } catch (err) {
+      console.log(err);
+    }
+    try {
+      await axios.post('/posts',newPost);
+     toast.success("New Post");
+     // window.location.reload();
+    } catch (err) {
+      console.log(err);
+      
+    }
+  }
+
+
+ 
+  
     
-  }
+  
+
 }
 
   return (
