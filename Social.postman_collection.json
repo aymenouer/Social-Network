@@ -515,6 +515,92 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Messenger",
+			"item": [
+				{
+					"name": "Add conversation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"senderId\":\"621aad90415f3340bf2f9d05\",\r\n    \"receiverId\":\"621947282bae5677a6dcdc10\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8800/api/conversations/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8800",
+							"path": [
+								"api",
+								"conversations",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get conversations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8800/api/conversations/6219478b62a328bc5ca67549",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8800",
+							"path": [
+								"api",
+								"conversations",
+								"6219478b62a328bc5ca67549"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add message",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"conversationId\":\"621cf6209008f788be8baeb9\",\r\n    \"sender\":\"6219478b62a328bc5ca67549\",\r\n    \"text\":\"Helooo 2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8800/api/messages/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8800",
+							"path": [
+								"api",
+								"messages",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

@@ -1,13 +1,27 @@
 import "./message.css"
+import TimeAgo from 'react-timeago'
+import  axios  from 'axios';
+import { useEffect } from 'react';
+import { useState } from 'react';
+export default function Message({message,own}) {
+  const [user,setUser] = useState({});
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  useEffect( ()=>{
+    const fetchUser = async() => {
+      const res = await axios.get(`/users?userId=${message.sender}`)
 
-export default function Message({own}) {
+     setUser(res.data);
+    }
+    fetchUser();
+   
+  },[message])
   return (
     <div className={own ? "message own" :  "message"}>
         <div className="messageTop">
-            <img className="messageImg" src="" alt="" />
-            <p className="messageText" >this is message</p>
+            <img src={ user?.profilePicture ? PF+user.profilePicture : PF+"person/avatar.png"} className="messageImg"  alt="" />
+            <p className="messageText" >{message.text}</p>
         </div>
-        <div className="messageBottom">1 hour ago</div>
+        <div className="messageBottom"><TimeAgo date={message.createdAt}/></div>
 
     </div>
   )
