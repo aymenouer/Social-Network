@@ -3,7 +3,7 @@ import { useEffect, useState,useContext } from "react";
 import axios from "axios"
 import "./post.css";
 import TimeAgo from 'react-timeago'
-
+import {  toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { AuthContext } from './../../context/AuthContext';
 export default function Post({post}) {
@@ -26,6 +26,9 @@ const likeHandler = () => {
   }
   setLike(isLiked ? like-1 : like+1);
   setIsLiked(!isLiked);
+
+  toast.success( !isLiked ? "Like a post" : "Deslike a post");
+  
 }
 
 const [user,setUser] = useState({});

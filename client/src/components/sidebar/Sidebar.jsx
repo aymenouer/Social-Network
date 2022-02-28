@@ -3,8 +3,9 @@ import "./sidebar.css";
 import { useState } from 'react';
 import { useEffect } from 'react';
 import  axios  from 'axios';
+import { useContext } from 'react';
+import { AuthContext } from './../../context/AuthContext';
 import {
-
   HelpOutline,
   RssFeed,
   WorkOutline,
@@ -16,9 +17,10 @@ import {
 } from "@material-ui/icons";
 export default function Sidebar() {
 const [Users,setUsers] = useState([]);
+const {user} = useContext(AuthContext);
 useEffect( ()=>{
   const fetchUsers = async() => {
-    const res = await axios.get("/users/all") 
+    const res = await axios.get("/users/all/") 
 
     setUsers(res.data);
   }
@@ -69,6 +71,7 @@ useEffect( ()=>{
         <ul className="sidebarFriendList">
          
           {Users.map(u=>(
+           u._id !== user._id &&
             <CloseFreind user={u} key={u.id} />
           ))}
         </ul>
