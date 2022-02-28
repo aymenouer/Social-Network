@@ -1,25 +1,32 @@
 import "./rightbar.css";
 import Online from "./../online/Online";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useRef } from "react";
 import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from './../../context/AuthContext';
 import {Add, Remove} from "@material-ui/icons"
+import { io } from "socket.io-client";
+
 export default function Rightbar({ user }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [friends, setFriends] = useState([]);
   const {user : currentuser,dispatch} = useContext(AuthContext);
+  const socket = useRef();
+
   const [followed,setFollowed]=useState(currentuser.followings.includes(user?._id));
-  const [Users,setUsers] = useState([]);
+  console.log(followed);
+  const [onlineUsers, setOnlineUsers] = useState([]);
+  useEffect(() => {
+    socket.current = io("ws://localhost:8900");
+
+  }, []);
   useEffect( ()=>{
-    const fetchUsers = async() => {
-      const res = await axios.get("/users/friends/"+currentuser._id) 
-  
-      setUsers(res.data);
-    }
-    fetchUsers();
-   
+    socket.current.emit("addUser", currentuser._id);
+    socket.current.on("getUsers", (users) => {
+      setOnlineUsers(currentuser.followings.filter(f=>users.some((u)=>u.userId === f)));
+     
+    });
   },[currentuser])
   useEffect(() => {
     const getFriends = async () => {
@@ -32,6 +39,11 @@ export default function Rightbar({ user }) {
     };
     getFriends();
   }, [user]);
+
+
+
+
+
   const handleClick = async () =>{
     try {
       if (followed)
@@ -70,9 +82,9 @@ export default function Rightbar({ user }) {
         <img src={`${PF}ad.jpg`} alt="" className="rightbarAd" />
         <h4 className="rightbarTitle">Online Freinds</h4>
         <ul className="rightbarFreindList">
-          {Users.map((u) => (
-            <Online key={u.id} user={u} />
-          ))}
+       
+            <Online currentId={currentuser._id}  onlineUsers={onlineUsers} />
+        
         </ul>
       </>
     );
@@ -85,10 +97,10 @@ export default function Rightbar({ user }) {
           <button onClick={handleClick} className="rightbarFollowButton">
            
            {
-             followed ? "Unfollow" :  "Follow"
+             currentuser.followings.includes(user?._id) ? "Unfollow" :  "Follow"
            }
            {
-             followed ? <Remove/> :  <Add/>
+             currentuser.followings.includes(user?._id) ? <Remove/> :  <Add/>
            }
             
 
