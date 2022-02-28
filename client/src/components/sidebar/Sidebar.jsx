@@ -1,7 +1,10 @@
 import CloseFreind from "../closeFriend/CloseFreind";
 import "./sidebar.css";
-import { Users } from './../../Data';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import  axios  from 'axios';
 import {
+
   HelpOutline,
   RssFeed,
   WorkOutline,
@@ -12,6 +15,18 @@ import {
   Chat,
 } from "@material-ui/icons";
 export default function Sidebar() {
+const [Users,setUsers] = useState([]);
+useEffect( ()=>{
+  const fetchUsers = async() => {
+    const res = await axios.get("/users/all") 
+
+    setUsers(res.data);
+  }
+  fetchUsers();
+ 
+},[])
+
+
   return (
     <div className="sidebar">
       <div className="sidebarWrapper">

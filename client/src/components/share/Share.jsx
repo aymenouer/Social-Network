@@ -1,4 +1,4 @@
-import { PermMedia,Label,Room,EmojiEmotions } from "@material-ui/icons";
+import { PermMedia,Label,Room,EmojiEmotions, Cancel } from "@material-ui/icons";
 import "./share.css";
 import { useContext, useState } from 'react';
 import { AuthContext } from './../../context/AuthContext';
@@ -68,6 +68,12 @@ const submitHandler = async(e) => {
           />
         </div>
         <hr className="shareHr" />
+        {file &&(
+          <div className="shareImgContainer">
+            <img src={URL.createObjectURL(file)} alt="" className="shareImg" />
+          <Cancel className="shareCancelImg" onClick={()=> setFile(null)} />
+          </div>
+        )}
         <form className="shareBottom" onSubmit={submitHandler} >
           <div className="shareOptions">
             <label htmlFor="file" className="shareOption">
