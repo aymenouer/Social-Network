@@ -2,7 +2,7 @@ import { useRef } from "react";
 import "./login.css"
 import { loginCall } from "../../apiCalls";
 import { useContext } from "react";
-import { AuthContext } from './../../context/AuthContext';
+import { AuthContext } from './../../context/Auth/AuthContext';
 import {CircularProgress} from "@material-ui/core"
 
 export default function Login() {

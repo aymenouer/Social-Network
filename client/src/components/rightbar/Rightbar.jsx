@@ -4,7 +4,7 @@ import { useContext, useEffect, useRef } from "react";
 import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from './../../context/AuthContext';
+import { AuthContext } from './../../context/Auth/AuthContext';
 import {Add, Remove} from "@material-ui/icons"
 import { io } from "socket.io-client";
 
@@ -15,7 +15,7 @@ export default function Rightbar({ user }) {
   const socket = useRef();
 
   const [followed,setFollowed]=useState(currentuser.followings.includes(user?._id));
-  console.log(followed);
+  
   const [onlineUsers, setOnlineUsers] = useState([]);
   useEffect(() => {
     socket.current = io("ws://localhost:8900");

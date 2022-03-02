@@ -4,7 +4,7 @@ import Message from "../../components/message/Message";
 import Topbar from "../../components/topbar/Topbar";
 import "./messenger.css";
 import { useContext, useRef, useState, useEffect } from "react";
-import { AuthContext } from "./../../context/AuthContext";
+import { AuthContext } from "./../../context/Auth/AuthContext";
 import axios from "axios";
 import { io } from "socket.io-client";
 export default function Messenger() {

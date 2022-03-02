@@ -1,15 +1,20 @@
 import { PermMedia,Label,Room,EmojiEmotions, Cancel } from "@material-ui/icons";
 import "./share.css";
 import { useContext, useState } from 'react';
-import { AuthContext } from './../../context/AuthContext';
+import { AuthContext } from './../../context/Auth/AuthContext';
 import { useRef } from 'react';
 import  axios  from 'axios';
 import {  toast } from 'react-toastify';
+import { PostsContext } from './../../context/Posts/PostsContext';
+import { postsCall } from './../../apiCalls';
+import { useLocation } from 'react-router';
 export default function Share() {
   const {user}=useContext(AuthContext);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const desc = useRef();
+  const location= useLocation();
   const [file,setFile] = useState(null);
+  const {dispatch} = useContext(PostsContext);
 const submitHandler = async(e) => {
   e.preventDefault();
 
@@ -40,6 +45,10 @@ const submitHandler = async(e) => {
     try {
       await axios.post('/posts',newPost);
      toast.success("New Post");
+     postsCall(location.pathname,user.username,user,dispatch);
+     setFile(null);
+     desc.current.value="";
+
      // window.location.reload();
     } catch (err) {
       console.log(err);

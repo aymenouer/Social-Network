@@ -23,7 +23,7 @@ export default function Online({currentId,onlineUsers}) {
     onlineFreinds.map(o=>(
 
     <li className="rightbarFreind">
-      <Link to={`/profile/${o?.username}`} style={{textDecoration: "none", display:"flex",alignItems:"center"}} >
+      <Link to={`/messenger`} style={{textDecoration: "none", display:"flex",alignItems:"center"}} >
       <div className="rightbarProfileImgContainer">
         <img src={o.profilePicture ? PF+o.profilePicture : PF+"person/avatar.png"} alt="" className="rightbarProfileImg" />
         <span className="rightbarOnline"></span>

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import  axios  from 'axios';
 import { useContext } from 'react';
-import { AuthContext } from './../../context/AuthContext';
+import { AuthContext } from './../../context/Auth/AuthContext';
 import {
   HelpOutline,
   RssFeed,

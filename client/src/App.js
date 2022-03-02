@@ -5,7 +5,7 @@ import Register from "./pages/register/Register";
 import Messenger from './pages/messenger/Messenger';
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import { useContext } from 'react';
-import { AuthContext } from './context/AuthContext';
+import { AuthContext } from './context/Auth/AuthContext';
 function App() {
   const {user} = useContext(AuthContext);
   return (
